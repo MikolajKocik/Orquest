@@ -1,16 +1,59 @@
-# React + Vite
+# Orquest - Project Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Orquest is a modern web application for visual project and task management. It allows teams to organize their work using an intuitive kanban-style board interface, where tasks can be moved between columns representing different stages of progress.
 
-Currently, two official plugins are available:
+This repository contains the **frontend** source code for the application, built with **React** and **backend** with .NET environment.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technology Stack
 
-## React Compiler
+The application is built on a separate frontend and backend architecture.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+* **React** (v19)
+* **Vite** as the build tool and development server
+* **ESLint** for code linting
+* Standard JavaScript (ES6+), HTML5, and CSS
 
-## Expanding the ESLint configuration
+### Backend (Served Separately)
+* **.NET**
+* **C#**
+* **Entity Framework (EF)**
+* **REST API** (The frontend consumes data from API endpoints, e.g., `/api/board`)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started (Frontend)
+
+To run the frontend part of the application locally, follow these steps.
+
+1.  **Clone the repository:**
+    ```sh
+    git clone <YOUR_REPOSITORY_URL>
+    ```
+
+2.  **Navigate to the project directory:**
+    ```sh
+    cd Orquest-016d41703263a575af16641dcd0f8a8753e6ee40
+    ```
+
+3.  **Install dependencies:**
+    Ensure you have Node.js and npm installed.
+    ```sh
+    npm install
+    ```
+
+4.  **Run the development server:**
+    This script will start the application in development mode with Hot Module Replacement (HMR).
+    ```sh
+    npm run dev
+    ```
+    The application will be available by default at `http://localhost:5173` (or another port specified by Vite).
+
+**Note:** For the application to be fully functional (i.e., to load data on the board), the .NET backend server must be running concurrently to handle requests to `/api/board`.
+
+## Available Scripts
+
+The following scripts are available in the project:
+
+* `npm run dev`: Starts the application in development mode.
+* `npm run build`: Compiles and bundles the application for production (output to the `dist` directory).
+* `npm run lint`: Runs ESLint to check for code style and errors.
+* `npm run preview`: Starts a local server to preview the production build (run after `npm run build`).
