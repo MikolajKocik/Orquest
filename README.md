@@ -2,36 +2,29 @@
 
 Orquest is a modern web application for visual project and task management. It allows teams to organize their work using an intuitive kanban-style board interface, where tasks can be moved between columns representing different stages of progress.
 
-This repository contains the **frontend** source code for the application, built with **React** and **backend** with .NET environment.
-
-## Technology Stack
+This repository contains the **frontend** source code for the application, built with **React**.
 
 The application is built on a separate frontend and backend architecture.
 
-### Frontend
+## Technology Stack
+
 * **React** (v19)
 * **Vite** as the build tool and development server
 * **ESLint** for code linting
 * Standard JavaScript (ES6+), HTML5, and CSS
 
-### Backend (Served Separately)
-* **.NET**
-* **C#**
-* **Entity Framework (EF)**
-* **REST API** (The frontend consumes data from API endpoints, e.g., `/api/board`)
-
-## Getting Started (Frontend)
+## Getting Started 
 
 To run the frontend part of the application locally, follow these steps.
 
 1.  **Clone the repository:**
     ```sh
-    git clone <YOUR_REPOSITORY_URL>
+    git clone "https://github.com/MikolajKocik/Orquest.git"
     ```
 
 2.  **Navigate to the project directory:**
     ```sh
-    cd Orquest-016d41703263a575af16641dcd0f8a8753e6ee40
+    cd <your-directory>
     ```
 
 3.  **Install dependencies:**
