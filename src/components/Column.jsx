@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Task from './Task';
 
-const Column = ({ title, tasks, columnId, onAddTask }) => {
+const Column = ({ title, tasks, columnId, onAddTask, onDeleteTask }) => {
     const [newTaskText, setNewTaskText] = useState('');
     
     const handleSubmit = (e) => {
@@ -11,13 +11,17 @@ const Column = ({ title, tasks, columnId, onAddTask }) => {
         onAddTask(columnId, newTaskText);
         setNewTaskText(''); // clear input
     }
-    
+
     return (
         <div className="column">
             <h2>{title}</h2>
             <div className="tasks-container">
                 {tasks.map((task) => (
-                    <Task key={task.id} text={task.text} />
+                    <Task 
+                        key={task.id}
+                        text={task.text}
+                        onDelete={() => onDeleteTask(columnId, task.id)}
+                    />
                 ))}
                 {tasks.length === 0 && <p className="empty-column-text">No tasks</p>}
             </div>
