@@ -1,4 +1,4 @@
-# Orquest - Project Management System
+# Orquest - Project Management System (In progress)
 
 Orquest is a modern web application for visual project and task management. It allows teams to organize their work using an intuitive kanban-style board interface, where tasks can be moved between columns representing different stages of progress.
 
