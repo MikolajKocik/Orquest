@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
 import Task from './Task';
 import { MoreHorizontal, Plus } from 'lucide-react';
+import { TaskData } from '../types/kanban';
 
-const Column = ({ title, tasks, columnId, onAddTask, onDeleteTask,
-        onDragStartTask, onDragOverColumn, onDropOnColumn }) => {
+interface ColumnProps {
+    title: string;
+    tasks: TaskData[]; 
+    columnId: string;
+    onAddTask: (columnId: string, taskText: string) => Promise<void>;
+    onDeleteTask: (columnId: string, taskId: string) => Promise<void>;
+    onDragStartTask: (task: TaskData, columnId: string) => void;
+    onDragOverColumn: (e: React.DragEvent<HTMLDivElement>) => void;
+    onDropOnColumn: (columnId: string) => void;
+    editingTaskId: string | null;
+    onSetEditingTaskId: (id: string | null) => void;
+    onUpdateTask: (columnId: string, taskId: string, newText: string) => Promise<void>;
+}
+
+const Column : React.FC<ColumnProps> = ({ title, tasks, columnId, onAddTask, onDeleteTask,
+        onDragStartTask, onDragOverColumn, onDropOnColumn,
+        editingTaskId, onSetEditingTaskId, onUpdateTask }) => {
+
     const [newTaskText, setNewTaskText] = useState('');
     const [isAdding, setIsAdding] = useState(false);
     
-    const handleSubmit = (e) => {
+    const handleSubmit = (e : React.FormEvent<HTMLFormElement> | React.KeyboardEvent) => {
         e.preventDefault();
         if (newTaskText.trim() === '') return;
 
@@ -40,8 +57,12 @@ const Column = ({ title, tasks, columnId, onAddTask, onDeleteTask,
                     <Task 
                         key={task.id}
                         task={task}
+                        columnId={columnId}
                         onDelete={() => onDeleteTask(columnId, task.id)}
                         onDragStart={() => onDragStartTask(task, columnId)}
+                        editingTaskId={editingTaskId}
+                        onSetEditingTaskId={onSetEditingTaskId}
+                        onUpdateTask={onUpdateTask}
                     />
                 ))}
                {tasks.length === 0 && <p className="p-2.5 text-gray italic text-[0.9rem] text-center">No tasks</p>}

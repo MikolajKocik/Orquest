@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Column from './Column';
+import { ColumnData, TaskData } from '../types/kanban';
 
 const emptyBoardStructure = [ 
     { id: 'col1', title: 'To Do', tasks: [] },
@@ -7,23 +8,36 @@ const emptyBoardStructure = [
     { id: 'col3', title: 'Done', tasks: [] }
 ]
 
-const Board = () => {
-    const [columns, setColumns] = useState(emptyBoardStructure)
+const Board : React.FC = () => {
+    const [columns, setColumns] = useState<ColumnData[]>(emptyBoardStructure);
 
     // states for drag & drop tasks
-    const [draggedTask, setDraggedTask] = useState(null)
-    const [sourceColumn, setSourceColumn] = useState(null)
+    const [draggedTask, setDraggedTask] = useState<TaskData | null>(null);
+    const [sourceColumn, setSourceColumn] = useState<string | null>(null);
+    const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
-    const handleDragStart = (task, columnId) => {
+    useEffect(() => {
+        fetch('/api/board')  
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to fetch data to board');
+                return res.json()
+            })
+            .then((data: ColumnData[]) => setColumns(data))
+            .catch(error => {
+                console.error("Error while loading the board:", error);
+            });
+    }, []); 
+
+    const handleDragStart = (task: TaskData, columnId: string) => {
         setDraggedTask(task);
         setSourceColumn(columnId);
     };
 
-    const handleDragOver = (e) => {
+    const handleDragOver = (e : React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
     };
 
-    const handleDrop = async (targetColumnId) => {
+    const handleDrop = async (targetColumnId: string) => {
         if (!draggedTask || !sourceColumn || sourceColumn === targetColumnId) {
             setDraggedTask(null);
             setSourceColumn(null);
@@ -38,7 +52,7 @@ const Board = () => {
             })
 
             if (!response.ok) {
-                throw new Error("Failed to move the task on the server", error)
+                throw new Error("Failed to move the task on the server")
             }
 
             setColumns((prevColumns) => {
@@ -71,26 +85,55 @@ const Board = () => {
         }
     }
 
-    useEffect(() => {
-        fetch('/api/board')  
-            .then(res => {
-                if (!res.ok) throw new Error('Failed to fetch data to board');
-                return res.json()
-            })
-            .then(data => setColumns(data))
-            .catch(error => {
-                console.error("Error while loading the board:", error);
-            });
-    }, []); 
+    const handleUpdateTaskText = async (columnId: string, taskId: string, newText: string) => {
+        if (!newText.trim()) {
+            handleDeleteTask(columnId, taskId);
+            setEditingTaskId(null);
+            return;
+        }
 
-    const handleAddTask =  async (columnId, taskText) => {
+        try {
+            const response = await fetch(`/api/tasks/${taskId}`, {
+                method: 'PATCH',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ text: newText })
+            });
+
+            if (!response.ok) {
+                throw new Error("Faild to update the task on server");
+            }
+
+            const updatedTask = await response.json();
+
+            setColumns((prevColumns) => {
+                return (prevColumns.map((column) => {
+                    if (column.id === columnId) {
+                        return {
+                            ...column,
+                            tasks: column.tasks.map(task => 
+                                task.id === taskId ? updatedTask : task
+                            )
+                        }
+                    }
+                    return column;
+                }));
+            });
+        } catch (error) {
+            console.error("Failed to update task:", error);
+            alert("An error occurred while updating the task.")
+        } finally {
+            setEditingTaskId(null);
+        }
+    }
+
+    const handleAddTask =  async (columnId: string, taskText: string) => {
         const newTask = {
             text: taskText,
             columnId: columnId
         }
         
         try {
-            const response = await fetch(`/api/tasks/`, {
+            const response = await fetch(`/api/tasks`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -122,7 +165,7 @@ const Board = () => {
         }
     }
 
-    const handleDeleteTask =  async (columnId, taskId) => {
+    const handleDeleteTask = async (columnId: string, taskId: string) => {
         try {
             const response = await fetch(`/api/tasks/${taskId}`, {
                 method: 'DELETE'
@@ -153,7 +196,7 @@ const Board = () => {
     return (
         <div className ="flex-1 overflow-auto p-8">
             <div className="mb-6">
-                <h1 className="text-3xl font-bold text-slate-900">Project Board</h1>
+                <h1 className="text-3xl font-bold text-slate-900">Board</h1>
                 <p className="text-slate-600 mt-1">
                     {columns.reduce((acc, col) => acc + col.tasks.length, 0)} tasks
                 </p>
@@ -171,6 +214,9 @@ const Board = () => {
                         onDragStartTask={handleDragStart}
                         onDragOverColumn={handleDragOver}
                         onDropOnColumn={handleDrop}
+                        editingTaskId={editingTaskId}
+                        onSetEditingTaskId={setEditingTaskId}
+                        onUpdateTask={handleUpdateTaskText}
                     />
                 ))}
             </div>

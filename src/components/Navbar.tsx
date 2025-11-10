@@ -26,7 +26,7 @@ const Navbar = () => {
                 <button className="p-2 hover:bg-slate-100 rounded-lg transition">
                     <Settings size={20} className="text-slate-600" />
                 </button>
-                {/* Avatar - todo based on account, now is static*/}
+                {/* Avatar - todo based on account, now its static*/}
                 <div className="w-9 h-9 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold text-sm">
                     MK
                 </div>

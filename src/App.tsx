@@ -1,21 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import './App';
 import Navbar from './components/Navbar';
 import Board from './components/Board';
 import Sidebar from './components/Sidebar';
-
-const DashboardPage = () => {
-  return <h1 
-      className="p-8 text-3xl font-bold text-slate-900">
-          Welcome on dashboard!
-        </h1>}
-
-const SettingsPage = () => {
-  return <h1 
-      className="p-8 text-3xl font-bold text-slate-900">
-          Project's settings
-        </h1>}
+import DashboardPage from './components/DashboardPage';
+import SettingsPage from './components/SettingsPage';
 
 function App() {
   return (

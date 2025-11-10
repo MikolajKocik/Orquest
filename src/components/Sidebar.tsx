@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Menu, LogOut, LayoutDashboard, ClipboardCheck, Cog } from 'lucide-react';
 
 const Sidebar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
-    
+
+    const baseLinkClass = "w-full flex items-center gap-4 px-4 py-3 rounded-lg transition";
+    const inactiveLinkClass = "hover:bg-slate-700 text-slate-300";
+    const activeLinkClass = "bg-blue-600 text-white";
+
     return (
         <div 
             className={`${sidebarOpen ? 'w-64' : 'w-20'}
@@ -22,27 +26,33 @@ const Sidebar = () => {
             </div>
 
             <nav className="flex-1 px-3 py-4 space-y-2">
-                <Link
+                <NavLink
                     to="/"
-                    className="w-full flex items-center gap-4 px-4 py-3 rounded-lg transition hover:bg-slate-700 text-slate-300"
+                    className={({ isActive }) => 
+                        `${baseLinkClass} ${isActive ? activeLinkClass : inactiveLinkClass}`
+                    }
                 >
                     <LayoutDashboard size={20} />
                     {sidebarOpen && <span className="font-medium">Dashboard</span>}
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                     to="/board"
-                    className="w-full flex items-center gap-4 px-4 py-3 rounded-lg transition bg-blue-600 text-white" 
+                    className={({ isActive }) => 
+                        `${baseLinkClass} ${isActive ? activeLinkClass : inactiveLinkClass}`
+                    } 
                 >
                     <ClipboardCheck size={20} />
-                    {sidebarOpen && <span className="font-medium">Your board</span>}
-                </Link>
-                <Link
+                    {sidebarOpen && <span className="font-medium">Board</span>}
+                </NavLink>
+                <NavLink
                     to="/settings"
-                    className="w-full flex items-center gap-4 px-4 py-3 rounded-lg transition hover:bg-slate-700 text-slate-300"
+                    className={({ isActive }) => 
+                        `${baseLinkClass} ${isActive ? activeLinkClass : inactiveLinkClass}`
+                    }
                 >
                     <Cog size={20} />
                     {sidebarOpen && <span className="font-medium">Settings</span>}
-                </Link>
+                </NavLink>
             </nav>
 
             <div className="border-t border-slate-700 p-3 space-y-2">
