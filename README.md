@@ -2,43 +2,14 @@
 
 Orquest is a modern web application for visual project and task management. It allows teams to organize their work using an intuitive kanban-style board interface, where tasks can be moved between columns representing different stages of progress.
 
-This repository contains the **frontend** source code for the application, built with **React**.
+This repository contains the **frontend** source code for the application, built with **Angular**.
 
 The application is built on a separate frontend and backend architecture.
 
 ## Technology Stack
 
-* **React (v19)** with **TypeScript**
-* **Vite** as the build tool and development server
-* **Tailwind CSS (v4)** for utility-first styling
-* **React Router (`react-router-dom`)** for client-side routing
-* **`lucide-react`** for icons
-* **ESLint** for code linting
-
-## Project Setup
-
-This documents the key commands used to add TypeScript and Tailwind CSS to the base Vite + React project.
-
-**1. Add TypeScript:**
-```sh
-npm install -D typescript @types/react @types/react-dom @types/node
-```
-
-**2. Add Tailwind CSS (v4) & Vite Plugin:**
-```sh
-npm install -D tailwindcss postcss autoprefixer
-npm install @tailwindcss/vite
-```
-
-**3. Add React Router:**
-```sh
-npm install react-router-dom
-```
-
-**4. Add icons:**
-```sh
-npm install lucide-react
-```
+* **Angular (v21)** with **TypeScript**
+* **Angular Router** for client-side routing
 
 ## Getting Started
 
@@ -51,20 +22,27 @@ To run the frontend part of the application locally, follow these steps.
 
 2.  **Navigate to the project directory:**
     ```bash
-    cd <your-directory>
+    cd Orquest
     ```
 
 3.  **Install dependencies:**
-    Ensure you have Node.js and npm installed. This will install all dependencies from `package.json`, including React, Tailwind, and TypeScript.
+    Ensure you have Node.js and npm installed. This will install all dependencies from `package.json`.
     ```bash
     npm install
     ```
 
 4.  **Run the development server:**
-    This script will start the application in development mode with Hot Module Replacement (HMR).
+    This script will start the application in development mode.
     ```bash
-    npm run dev
+    npm start
     ```
-    The application will be available by default at `http://localhost:5173` (or another port specified by Vite).
+    The application will be available by default at `http://localhost:4200`.
 
-**Note:** For the application to be fully functional (i.e., to load data on the board), the .NET backend server must be running concurrently to handle requests to `/api/board`.
+## Available Scripts
+
+* `npm start` - Starts the development server
+* `npm run build` - Builds the application for production
+* `npm test` - Runs unit tests
+* `npm run watch` - Builds the application in watch mode for development
+
+**Note:** For the application to be fully functional, the .NET backend server must be running concurrently to handle API requests.
