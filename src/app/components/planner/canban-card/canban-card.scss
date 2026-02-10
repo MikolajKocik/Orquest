@@ -1,0 +1,37 @@
+@mixin priority($theme: green) {
+    background-color: $theme;
+    border: 0.1rem white;
+}
+
+@mixin type($theme: red) {
+    background-color: $theme;
+}
+
+.priority-dot {
+    min-width: 1rem;
+    min-height: 1rem;
+}
+
+.bg-low {
+    @include priority(green);
+}
+
+.bg-medium {
+    @include priority(#C0BD5A);
+}
+
+.bg-high {
+    @include priority(red);
+}
+
+.bg-todo {
+    @include type(red);
+}
+
+.bg-in-process {
+    @include type(#C0BD5A);
+}
+
+.bg-done {
+    @include type(green);
+}
