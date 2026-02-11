@@ -7,6 +7,6 @@ export interface CanbanTask {
     assignedTo?: User,
     priority: "Low" | "Medium" | "High",
     type: "Todo" | "In process" | "Done",
-    attachments: (TaskAttachment | File)[],
+    attachments?: (TaskAttachment | File)[],
     description: string
 }

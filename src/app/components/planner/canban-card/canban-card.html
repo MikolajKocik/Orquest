@@ -15,9 +15,9 @@
     <div class="card-body d-flex flex-column rounded-2" style="background-color: #E4D8D8;">
         <span class="text-black">Assigned To: {{ task().assignedTo?.email || 'Nobody' }}</span>
         <ul>
-            @for (attachment of task().attachments; track (attachment.id || attachment.name)) {
+            @for (attachment of task().attachments || []; track (attachment.id || attachment.name)) {
                 <li>{{ (attachment.fileName || attachment.name) }}</li>
-            } @else {
+            } @empty {
                 <li>There are no attachments yet.</li>
             }
         </ul>

@@ -11,7 +11,7 @@ import { CanbanCard } from '../canban-card/canban-card';
 })
 export class CanbanColumn {
   protected title = input.required<string>();
-  protected tasks = input.required<CanbanTask[]>();
+  tasks = input.required<CanbanTask[]>();
 
   protected editTask = output<CanbanTask>();
 
