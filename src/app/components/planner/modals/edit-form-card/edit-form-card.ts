@@ -11,8 +11,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './edit-form-card.css',
 })
 export class EditFormCard implements OnInit {
-  protected users = input.required<User[]>();
-  protected task = input.required<CanbanTask>();
+  users = input<User[]>([]);
+  task = input<CanbanTask>();
+
   protected activeModal = inject(NgbActiveModal);
 
   protected editForm: FormGroup;
@@ -33,11 +34,11 @@ export class EditFormCard implements OnInit {
 
   ngOnInit(): void {
     this.editForm.patchValue({ 
-      taskName: this.task().name,
-      assignedTo: this.task().assignedTo,
-      priority: this.task().priority,
-      attachments: this.task().attachments,
-      description: this.task().description
+      taskName: this.task()?.name,
+      assignedTo: this.task()?.assignedTo,
+      priority: this.task()?.priority,
+      attachments: this.task()?.attachments,
+      description: this.task()?.description
     })
   }
 

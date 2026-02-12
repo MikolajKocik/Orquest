@@ -52,8 +52,8 @@
             </div>
             <div class="row mt-3">
                 <div class="col-12 text-end pb-3">
-                    <button type="button" class="btn btn-secondary me-2" (click)="activeModal.dismiss()">Anuluj</button>
-                    <button type="submit" class="btn btn-success">Zapisz zmiany</button>
+                    <button type="button" class="btn btn-secondary me-2" (click)="activeModal.dismiss()">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="editForm.invalid">Save changes</button>
                 </div>
             </div>
         </div>

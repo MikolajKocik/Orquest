@@ -10,10 +10,10 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
   styleUrl: './canban-card.scss',
 })
 export class CanbanCard {
-  protected task = input.required<CanbanTask>();
+  task = input.required<CanbanTask>();
   protected user = computed(() => this.task().assignedTo);
 
-  protected cardClicked = output<CanbanTask>();
+  cardClicked = output<CanbanTask>();
 
   onCardClick() {
     this.cardClicked.emit(this.task());

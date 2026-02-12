@@ -6,7 +6,7 @@ export interface CanbanTask {
     name: string,
     assignedTo?: User,
     priority: "Low" | "Medium" | "High",
-    type: "Todo" | "In process" | "Done",
+    type: "ToDo" | "In process" | "Done",
     attachments?: (TaskAttachment | File)[],
     description: string
 }
